@@ -1,0 +1,409 @@
+{
+    "title": "Liquibase Executive Summary",
+    "description": null,
+    "widgets": [
+        {
+            "id": 3484061675269668,
+            "definition": {
+                "title": "Total Deployments",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "@deploymentOutcome:*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 8036039262905050,
+            "definition": {
+                "title": "Success/Failure",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@deploymentOutcome",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "cardinality",
+                                            "metric": "@deploymentId"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@deploymentOutcome:*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "inline",
+                    "hide_percent": false
+                }
+            },
+            "layout": {
+                "x": 5,
+                "y": 0,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 794333648349331,
+            "definition": {
+                "title": "Deployments by Environment",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "a",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandContextFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@deploymentOutcome:* -@commandContextFilter:\"\""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {}
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 10,
+                "height": 4
+            }
+        },
+        {
+            "id": 2292073153638266,
+            "definition": {
+                "title": "Total Applications",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@commandLabelFilter"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": ""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 8104836151024090,
+            "definition": {
+                "title": "Application Deployments",
+                "type": "treemap",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandLabelFilter",
+                                        "limit": 15,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "cardinality",
+                                            "metric": "@deploymentId"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@deploymentOutcome:success"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        },
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "layout": {
+                "x": 5,
+                "y": 8,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 7109303713499518,
+            "definition": {
+                "title": "Rollbacks by Application",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandLabelFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@liquibaseCommandName:rollback*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "style": {}
+            },
+            "layout": {
+                "x": 0,
+                "y": 12,
+                "width": 10,
+                "height": 4
+            }
+        },
+        {
+            "id": 6135577194065006,
+            "definition": {
+                "title": "Last 25 Deployments",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                    {
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@deploymentId",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    },
+                                    {
+                                        "facet": "@commandLabelFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    },
+                                    {
+                                        "facet": "@commandContextFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@deploymentOutcome:success -@commandContextFilter:\"\""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "conditional_formats": [],
+                                "cell_display_mode": "bar",
+                                "alias": "Total",
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 1000,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "has_search_bar": "auto"
+            },
+            "layout": {
+                "x": 0,
+                "y": 16,
+                "width": 10,
+                "height": 4
+            }
+        },
+        {
+            "id": 5598041004998948,
+            "definition": {
+                "type": "note",
+                "content": "https://app.datadoghq.com/dashboard/suk-aqt-eee/liquibase-executive-summary?from_ts=1684525791950&to_ts=1687204191950&live=true",
+                "background_color": "white"
+            },
+            "layout": {
+                "x": 0,
+                "y": 20,
+                "width": 4,
+                "height": 2
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}

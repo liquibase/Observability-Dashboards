@@ -1,0 +1,371 @@
+{
+    "title": "Liquibase Database Details",
+    "description": null,
+    "widgets": [
+        {
+            "id": 6204739534573886,
+            "definition": {
+                "title": "Database Targets",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@liquibaseTargetUrl"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": ""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 2327026663764074,
+            "definition": {
+                "title": "Oracle",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@liquibaseTargetUrl"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*oracle*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 5,
+                "y": 0,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 2233700307464828,
+            "definition": {
+                "title": "Mongo",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@liquibaseTargetUrl"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*mongo*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 6455651183399634,
+            "definition": {
+                "title": "Snowflake",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@liquibaseTargetUrl"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*snowflake*"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 5,
+                "y": 2,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 8254707112269702,
+            "definition": {
+                "title": "Mongo Successful Deployments",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandContextFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "cardinality",
+                                            "metric": "@deploymentId"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*mongo* @deploymentOutcome:success -@commandContextFilter:\"\""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "automatic"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 5323833276740974,
+            "definition": {
+                "title": "Oracle Successful Deployments",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandContextFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "cardinality",
+                                            "metric": "@deploymentId"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*oracle* @deploymentOutcome:success -@commandContextFilter:\"\""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "automatic"
+                }
+            },
+            "layout": {
+                "x": 5,
+                "y": 4,
+                "width": 5,
+                "height": 4
+            }
+        },
+        {
+            "id": 8248840695473454,
+            "definition": {
+                "title": "Snowflake Successful Deployments",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@deploymentId"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@commandContextFilter",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "cardinality",
+                                            "metric": "@deploymentId"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "@liquibaseTargetUrl:*snowflake* @deploymentOutcome:success -@commandContextFilter:\"\""
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "automatic"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 5,
+                "height": 4
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
