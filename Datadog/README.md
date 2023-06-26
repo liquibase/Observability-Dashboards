@@ -18,7 +18,7 @@ This dashboard consists of the following widgets:
 |<b>TOTAL APPLICATIONS</b><br>Visualization: Query Value<br><img src=img/query_TotalApplications.png width="300"> | <img src=img/TotalApplications.png width="300"> |
 |<b>APPLICATION DEPLOYMENTS</b><br>Visualization: Tree Map<br><img src=img/query_ApplicationDeployments.png width="600"> | <img src=img/ApplicationDeployments.png width="300"> |
 |<b>ROLLBACK BY APPLICATION</b><br>Visualization: Top List<br><img src=img/query_RollbacksbyApplication.png width="300"> | <img src=img/RollbacksbyApplication.png width="300"> |
-|<b>LAST 25 DEPLOYMENTS</b><br>Visualization: Table<br>Data:<li>`Logs: Show Count of * by (Deployment ID (@deploymentId) Application (@commandLabelFilter) Environment (@commandContextFilter)) limit to top 10` | <img src=img/Last25Deployments.png width="300"> |
+|<b>LAST 25 DEPLOYMENTS</b><br>Visualization: Table<br><img src=img/query_Last25Deployments.png width="300"> | <img src=img/Last25Deployments.png width="300"> |
 
 ## Database Dashboard
 
