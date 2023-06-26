@@ -12,7 +12,7 @@ This page contains JSON exports of two Datadog dashboards:
 This dashboard consists of the following widgets:
 | Widget | Sample |
 | ------ | ------ |
-|<b>TOTAL DEPLOYMENTS</b><br>Visualization: Query Value<br>Data:<li>`Logs: Show (Deployment ID (@deploymentId))` | <img src=img/TotalDeployments.png width="300"> |
+|<b>TOTAL DEPLOYMENTS</b><br>Visualization: Query Value<br>Data:<li>`Logs: @deploymentId: *` | <img src=img/TotalDeployments.png width="300"> |
 |<b>SUCCESS/FAILURE</b><br>Visualization: Pie Chart<br>Data:<li>`Logs: Show Count unique of (Deployment ID (@deploymentId)) by (Deployment Outcome (@deploymentOutcome)) limit to top 10` | <img src=img/Success_Failure.png width="300"> |
 |<b>DEPLOYMENTS BY ENVIRONMENT</b><br>Visualization: Top List<br>Data:<li>`Logs: Show Count of * by (Environment (@contextCommandFilter)) limit to top 10` | <img src=img/DeploymentsbyEnvironment.png width="500"> |
 |<b>TOTAL APPLICATIONS</b><br>Visualization: Query Value<br>Data:<li>`Logs: Show (Application (@commandLabelFilter))` | <img src=img/TotalApplications.png width="300"> |
@@ -21,4 +21,18 @@ This dashboard consists of the following widgets:
 |<b>LAST 25 DEPLOYMENTS</b><br>Visualization: Table<br>Data:<li>`Logs: Show Count of * by (Deployment ID (@deploymentId) Application (@commandLabelFilter) Environment (@commandContextFilter)) limit to top 10` | <img src=img/Last25Deployments.png width="300"> |
 
 ## Database Dashboard
+
+This dashboard consists of the following widgets:
+| Widget | Sample |
+| ------ | ------ |
+|<b>DATABASE TARGETS</b><br>Visualization: Query Value<br>Data:<li>`Logs: Show (Database (@liquibaseTargetUrl))` | <img src=img/DatabaseTargets.png width="300"> |
+
+
+DATABASE TARGETS
+ORACLE
+MONGODB
+SNOWFLAKE
+MONGODB SUCCESSFUL DEPLOYMENTS
+ORACLE SUCCESSFUL DEPLOYMENTS
+SNOWFLAKE SUCCESSFUL DEPLOYMENTS
 
