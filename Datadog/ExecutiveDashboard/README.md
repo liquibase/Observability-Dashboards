@@ -1,5 +1,7 @@
 # Executive Dashboard
 
+Import the supplied JSON file (ExecutiveDashboard.json) to import the dashboard.
+
 This dashboard consists of the following widgets:
 | Widget | Sample |
 | ------ | ------ |

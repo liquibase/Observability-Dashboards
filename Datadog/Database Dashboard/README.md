@@ -1,5 +1,7 @@
 ## Database Dashboard
 
+Import the supplied JSON file (DatabaseDashboard.json) to import the dashboard.
+
 This dashboard consists of the following widgets:
 | Widget | Sample |
 | ------ | ------ |
