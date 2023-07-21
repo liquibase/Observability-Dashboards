@@ -3,7 +3,7 @@
 This dashboard consists of the following widgets:
 | Widget | Sample |
 | ------ | ------ |
-|<b>TOTAL DEPLOYMENTS</b><br>Visualization: <b>Metric</b><br> Primary metric: `Unique count` of `deploymentId`| <img src=img/TotalDeployments.png width="300"> |
+|<b>DEPLOYMENT FREQUENCY</b><br>Visualization: <b>Metric</b><br> Primary metric: `Unique count` of `deploymentId`| <img src=img/DeploymentFrequency.png width="300"> |
 |<b>DEV</b><br>Visualization: <b>Metric</b><br> Primary metric: `Unique count` of `deploymentId` <br>Breakdown by `filter`: `(comandContextFilter.keyword : *dev*)`| <img src=img/Dev.png width="300"> |
 |<b>TEST</b><br>Visualization: <b>Metric</b><br> Primary metric: `Unique count` of `deploymentId` <br>Breakdown by `filter`: `(comandContextFilter.keyword : *test*)`| <img src=img/Test.png width="300"> |
 |<b>STAGE</b><br>Visualization: <b>Metric</b><br> Primary metric: `Unique count` of `deploymentId` <br>Breakdown by `filter`: `(comandContextFilter.keyword : *stage*)`| <img src=img/Stage.png width="300"> |
