@@ -6,18 +6,18 @@ We will provide sample dashboards for AWS Cloudwatch with Grafana, Datadog, Splu
 
 Common metrics:
 
-* Success Rate
 * Deployment Frequency
+* Change Failure Rate
 * Lead Time To Change
 * MTTR (Mean Time To Recovery)
-
-## Success Rate
-
-Counting all deployments, breaking them down between success and failure.
 
 ## Deployment Frequency
 
 Frequency of database deployments 
+## Change Failure Rate
+
+Percentage of deployment that fail
+
 ## Lead Time To Change
 
 Time between when a change was first seen in the pipeline (e.g., first deployment to DEV) and the time it was successfully deployed to PROD
