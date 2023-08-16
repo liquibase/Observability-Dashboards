@@ -1,0 +1,10 @@
+# Executive Dashboard
+
+This dashboard consists of the following widgets:
+| Widget | Sample |
+| ------ | ------ |
+|<b>TOTAL DEPLOYMENTS</b><br>Visualization: <b>Single Value</b><br>SQL query: `index=lb \| where deploymentId!="" \| stats dc(count) by deploymentId \| stats count as Total` | <img src=img/TotalDeployments.png width="300"> |
+|<b>ENVIRONMENT DEPLOYMENTS</b><br>Visualization: <b>Single Value</b><br> SQL query: `index=lb \| where deploymentId!="" \| search liquibaseTargetUrl="*dev" \| stats dc(count) by deploymentId \| stats count as Total`<br> Note: <ul><li>For Dev deployments use `liquibaseTargetUrl="*dev"` <li>For Test deployments use `liquibaseTargetUrl="*test"` <li>For Stage deployments, use `liquibaseTargetUrl="*stag"` <li>For Prod deployments use `liquibaseTargetUrl="*dev"` | <img src=img/EnvDeployments.png width="300"> |
+|<b>SUCCESS/FAILURE RATE</b><br>Visualization: <b>Pie</b><br>SQL query: `index="lb" \| spath deploymentOutcome \| search deploymentOutcome=success OR deploymentOutcome=failure \| stats count by deploymentOutcome \| eval percentage = round((count / total) * 100, 2)` | <img src=img/SuccessFailure.png width="300"> |
+|<b>DEPLOYMENT FREQUENCY</b><br>Visualization: <b>Area</b><br>SQL query: `index="lb"  \| spath deploymentOutcome \| search deploymentOutcome=success OR deploymentOutcome=failure \| timechart count by deploymentOutcome` | <img src=img/DeploymentFrequency.png width="300"> |
+|<b>DEPLOYMENT FREQUENCY</b><br>Visualization: <b>Single Value</b><br>SQL query: `index="lb" \| search changesetOperationStart!="" AND deploymentId!="" AND level=INFO AND changesetId!="" \| search liquibaseTargetUrl="*prod" OR liquibaseTargetUrl="*dev" \| transaction changesetId endswith=liquibaseTargetUrl="*prod" startswith=liquibaseTargetUrl="*dev" \| stats avg(duration) as LB \| eval result=round(LB/86400, 4)` | <img src=img/LeadTimeToChange.png width="300"> |
