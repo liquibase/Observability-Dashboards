@@ -1,6 +1,6 @@
 # SPLUNK DASHBOARDS 
 
-This folder contains JSON export of one Splunk dashboards: 
+This folder contains JSON export of one Splunk dashboard: 
 
 * Executive Dashboard
 

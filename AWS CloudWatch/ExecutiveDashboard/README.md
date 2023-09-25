@@ -1,0 +1,11 @@
+# Executive Dashboard
+
+This dashboard consists of the following widgets:
+| Widget | Sample |
+| ------ | ------ |
+|<b>TOTAL DEPLOYMENTS</b><br>Visualization: <b>Stat</b><br>SQL query: `count(sum(count_over_time({job="data"} \| json \| deploymentId!="" [1y])) by (deploymentId))` | <img src=img/TotalDeployments.png width="400"> |
+|<b>ENVIRONMENT DEPLOYMENTS</b><br>Visualization: <b>Stat</b><br> SQL query: `count(sum(count_over_time({job="data"} \| json \| deploymentId!="" and liquibaseTargetUrl=~"(?s).*dev.*" [1y])) by (deploymentId))`<br> Note: <ul><li>For Dev deployments use `liquibaseTargetUrl=~"(?s).*dev.*"` <li>For Test deployments use `liquibaseTargetUrl=~"(?s).*test.*"` <li>For Stage deployments, use `liquibaseTargetUrl=~"(?s).*stag.*"` <li>For Prod deployments use `lliquibaseTargetUrl=~"(?s).*prod.*"` | <img src=img/DevDeployments.png width="400"> |
+|<b>SUCCESS/FAILURE RATE</b><br>Visualization: <b>Pie chart</b><br>SQL query B: `(sum(count_over_time({job="data"}  \| json \| deploymentOutcome = "failure" [1y])) / sum(count_over_time({job="data"}  \| json \| deploymentOutcome = "failure" or deploymentOutcome = "success" [1y]))) * 100` <br>SQL Query A: `(sum(count_over_time({job="data"}  \| json \| deploymentOutcome = "success" [1y])) / sum(count_over_time({job="data"}  \| json \| deploymentOutcome = "failure" or deploymentOutcome = "success" [1y])) ) * 100` | <img src=img/SuccessFailure.png width="400"> |
+|<b>DEPLOYMENT FREQUENCY</b><br>Visualization: <b>Time Series</b><br>SQL query A: `sum(count_over_time({job="data"} \| json \| deploymentOutcome="failure"  [1d])) by (deploymentOutcome)` <br>SQL query B: `sum(count_over_time({job="data"} \| json \| deploymentOutcome="success"  [1d])) by (deploymentOutcome)` | <img src=img/DeploymentFrequency.png width="400"> |
+|<b>RELEASES BY TOP APPS</b><br>Visualization: <b>Pie chart</b><br>SQL query: `sum(count_over_time({job="data"} \| json \| deploymentId!="" [1y])) by (commandLabelFilter)` | <img src=img/ReleasesByTopApps.png width="400"> |
+|<b>ROLLBACKS</b><br>Visualization: <b>Area</b><br>SQL query: `count(sum(count_over_time({job="data"} \| json \| deploymentId!="" and liquibaseCommandName=~"(?s).*rollback.*" [1d])) by (deploymentId))` | <img src=img/Rollbacks.png width="400"> |
