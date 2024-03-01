@@ -1,3 +1,12 @@
+# LIQUIBASE Settings to enable structured logs
+
+See the `liquibase.properties` file:
+```
+liquibase.logFormat=JSON or JSON_PRETTY
+liquibase.logfile=../the/path/to/my/logs
+liquibase.logLevel=INFO or FINE
+```
+
 # LIQUIBASE DASHBOARDS 
 
 This repo will host information about common dashboards that can be built using Liquibase Pro's structured logging output. 
