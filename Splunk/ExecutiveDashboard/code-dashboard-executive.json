@@ -1,352 +1,385 @@
 {
-	"visualizations": {
-		"viz_tCmBWTEo": {
-			"type": "splunk.singlevalue",
-			"dataSources": {
-				"primary": "ds_lXxUUY3W_ds_fVSSLXOH"
-			},
-			"options": {
-				"sparklineValues": "> primary | seriesByName('Total')",
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendColor": "transparent",
-				"sparklineDisplay": "off",
-				"majorColor": "#294e70",
-				"trendValue": "> sparklineValues | delta(-2)"
-			},
-			"title": "Total deployments"
-		},
-		"viz_mp7e5D7R": {
-			"type": "splunk.singlevalue",
-			"options": {
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendValue": "> sparklineValues | delta(-2)",
-				"sparklineValues": "> primary | seriesByName('Total')",
-				"trendColor": "transparent",
-				"sparklineDisplay": "off",
-				"majorColor": "#294e70"
-			},
-			"dataSources": {
-				"primary": "ds_b3mEeW5c"
-			},
-			"title": "Dev deployments"
-		},
-		"viz_aGnbUnA6": {
-			"type": "splunk.singlevalue",
-			"options": {
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendValue": "> sparklineValues | delta(-2)",
-				"sparklineValues": "> primary | seriesByName('Total')",
-				"trendColor": "transparent",
-				"sparklineDisplay": "off",
-				"majorColor": "#294e70"
-			},
-			"dataSources": {
-				"primary": "ds_JXPRLjU6_ds_b3mEeW5c"
-			},
-			"title": "Test deployments"
-		},
-		"viz_JYlh45Gf": {
-			"type": "splunk.singlevalue",
-			"options": {
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendValue": "> sparklineValues | delta(-2)",
-				"sparklineValues": "> primary | seriesByName('Total')",
-				"trendColor": "transparent",
-				"sparklineDisplay": "off",
-				"majorColor": "#294e70"
-			},
-			"dataSources": {
-				"primary": "ds_9Xh8smxg_ds_JXPRLjU6_ds_b3mEeW5c"
-			},
-			"title": "Prod deployments"
-		},
-		"viz_3Y7jgyI6": {
-			"type": "splunk.pie",
-			"title": "Success/Failure Rate (aggregate)",
-			"dataSources": {
-				"primary": "ds_laYYoqlZ"
-			},
-			"options": {
-				"labelDisplay": "valuesAndPercentage",
-				"showDonutHole": true
-			}
-		},
-		"viz_IcWhHVYI": {
-			"type": "splunk.area",
-			"dataSources": {
-				"primary": "ds_NchzcV0z"
-			},
-			"title": "Success/Failure Rate (aggregate)",
-			"options": {
-				"yAxisTitleText": "Deployments",
-				"xAxisTitleText": "Timestamp per day"
-			}
-		},
-		"viz_vV1iWI7O": {
-			"type": "splunk.pie",
-			"title": "Releases by Top Apps",
-			"dataSources": {
-				"primary": "ds_6pH4dCg7_ds_laYYoqlZ"
-			},
-			"options": {
-				"labelDisplay": "valuesAndPercentage",
-				"showDonutHole": true
-			}
-		},
-		"viz_HW5EvucE": {
-			"type": "splunk.line",
-			"title": "Rollbacks by Apps",
-			"dataSources": {
-				"primary": "ds_jS9oMmln"
-			},
-			"options": {
-				"xAxisTitleText": "timestamp per day",
-				"yAxisTitleText": "# of rollbacks",
-				"seriesColors": [
-					"#2DA65B"
-				],
-				"legendDisplay": "off",
-				"nullValueDisplay": "connect"
-			}
-		},
-		"viz_FKkJB3ua": {
-			"type": "splunk.singlevalue",
-			"options": {
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendValue": "> sparklineValues | delta(-2)",
-				"sparklineValues": "> primary | seriesByName('Total')",
-				"trendColor": "transparent",
-				"sparklineDisplay": "off",
-				"majorColor": "#294e70"
-			},
-			"dataSources": {
-				"primary": "ds_EuIa2Xoo_ds_JXPRLjU6_ds_b3mEeW5c"
-			},
-			"title": "Stage deployments"
-		},
-		"viz_OIdVl5Ml": {
-			"type": "splunk.singlevalue",
-			"dataSources": {
-				"primary": "ds_wukSSCfT_ds_NchzcV0z"
-			},
-			"title": "Lead time to change (days)",
-			"showProgressBar": false,
-			"showLastUpdated": false,
-			"options": {
-				"majorValue": "> sparklineValues | lastPoint()",
-				"trendValue": "> sparklineValues | delta(-2)",
-				"sparklineValues": "> primary | seriesByName('result')",
-				"sparklineDisplay": "off",
-				"trendDisplay": "off",
-				"numberPrecision": 2,
-				"majorColor": "#294e70"
-			}
-		}
-	},
-	"dataSources": {
-		"ds_lXxUUY3W_ds_fVSSLXOH": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb | where deploymentId!=\"\" | stats dc(count) by deploymentId | stats count as Total",
-				"queryParameters": {}
-			},
-			"name": "total_deployments"
-		},
-		"ds_b3mEeW5c": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*dev\"\n| stats dc(count) by deploymentId\n| stats count as Total"
-			},
-			"name": "dev_deployments"
-		},
-		"ds_JXPRLjU6_ds_b3mEeW5c": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*test\"\n| stats dc(count) by deploymentId\n| stats count as Total"
-			},
-			"name": "test_deployments"
-		},
-		"ds_9Xh8smxg_ds_JXPRLjU6_ds_b3mEeW5c": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*prod\"\n| stats dc(count) by deploymentId\n| stats count as Total"
-			},
-			"name": "prod_deployments"
-		},
-		"ds_laYYoqlZ": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=\"lb\" \r\n| spath deploymentOutcome\r\n| search deploymentOutcome=success OR deploymentOutcome=failure\r\n| stats count by deploymentOutcome \r\n| eval percentage = round((count / total) * 100, 2)"
-			},
-			"name": "Success Failure Rate aggregate"
-		},
-		"ds_NchzcV0z": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=\"lb\" \r\n| spath deploymentOutcome\r\n| search deploymentOutcome=success OR deploymentOutcome=failure\r\n| timechart count by deploymentOutcome\r\n\r\n"
-			},
-			"name": "Success Failure Rate"
-		},
-		"ds_6pH4dCg7_ds_laYYoqlZ": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=\"lb\"\r\n| where deploymentId!=\"\"\r\n| spath input=_raw path=commandLabelFilter\r\n| stats count by commandLabelFilter \r\n| eval percentage = round((count / total) * 100, 2) \r\n"
-			},
-			"name": "Releases by Top Apps"
-		},
-		"ds_jS9oMmln": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb | where deploymentId!=\"\" | spath liquibaseCommandName | search liquibaseCommandName=\"rollback*\" | timechart span=1h count(deploymentId) as deploymentId"
-			},
-			"name": "Rollbacks by Apps"
-		},
-		"ds_EuIa2Xoo_ds_JXPRLjU6_ds_b3mEeW5c": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*stag\"\n| stats dc(count) by deploymentId\n| stats count as Total"
-			},
-			"name": "stage_deployments"
-		},
-		"ds_wukSSCfT_ds_NchzcV0z": {
-			"type": "ds.search",
-			"options": {
-				"query": "index=\"lb\"\n| search changesetOperationStart!=\"\" AND deploymentId!=\"\" AND level=INFO AND changesetId!=\"\"\n| search liquibaseTargetUrl=\"*prod\" OR liquibaseTargetUrl=\"*dev\"\n| transaction changesetId endswith=liquibaseTargetUrl=\"*prod\" startswith=liquibaseTargetUrl=\"*dev\"\n| stats avg(duration) as LB\n| eval result=round(LB/86400, 4)"
-			},
-			"name": "Lead Time to Change"
-		}
-	},
-	"defaults": {
-		"dataSources": {
-			"ds.search": {
-				"options": {
-					"queryParameters": {
-						"latest": "$global_time.latest$",
-						"earliest": "$global_time.earliest$"
-					}
-				}
-			}
-		}
-	},
-	"inputs": {
-		"input_global_trp": {
-			"type": "input.timerange",
-			"options": {
-				"token": "global_time",
-				"defaultValue": "-24h@h,now"
-			},
-			"title": "Global Time Range"
-		}
-	},
-	"layout": {
-		"type": "grid",
-		"options": {},
-		"structure": [
-			{
-				"item": "viz_tCmBWTEo",
-				"type": "block",
-				"position": {
-					"x": 0,
-					"y": 0,
-					"w": 1180,
-					"h": 182
-				}
-			},
-			{
-				"item": "viz_mp7e5D7R",
-				"type": "block",
-				"position": {
-					"x": 0,
-					"y": 182,
-					"w": 265,
-					"h": 92
-				}
-			},
-			{
-				"item": "viz_3Y7jgyI6",
-				"type": "block",
-				"position": {
-					"x": 0,
-					"y": 274,
-					"w": 354,
-					"h": 293
-				}
-			},
-			{
-				"item": "viz_vV1iWI7O",
-				"type": "block",
-				"position": {
-					"x": 0,
-					"y": 567,
-					"w": 593,
-					"h": 286
-				}
-			},
-			{
-				"item": "viz_aGnbUnA6",
-				"type": "block",
-				"position": {
-					"x": 265,
-					"y": 182,
-					"w": 284,
-					"h": 92
-				}
-			},
-			{
-				"item": "viz_IcWhHVYI",
-				"type": "block",
-				"position": {
-					"x": 354,
-					"y": 274,
-					"w": 581,
-					"h": 293
-				}
-			},
-			{
-				"item": "viz_FKkJB3ua",
-				"type": "block",
-				"position": {
-					"x": 549,
-					"y": 182,
-					"w": 301,
-					"h": 92
-				}
-			},
-			{
-				"item": "viz_HW5EvucE",
-				"type": "block",
-				"position": {
-					"x": 593,
-					"y": 567,
-					"w": 587,
-					"h": 286
-				}
-			},
-			{
-				"item": "viz_JYlh45Gf",
-				"type": "block",
-				"position": {
-					"x": 850,
-					"y": 182,
-					"w": 330,
-					"h": 92
-				}
-			},
-			{
-				"item": "viz_OIdVl5Ml",
-				"type": "block",
-				"position": {
-					"x": 935,
-					"y": 274,
-					"w": 245,
-					"h": 293
-				}
-			}
-		],
-		"globalInputs": [
-			"input_global_trp"
-		]
-	},
-	"description": "",
-	"title": "Executive Dashboard"
+    "dataSources": {
+        "ds_OmvYo00U": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=\"lb\" deploymentOutcome=*\n| transaction deploymentId startswith=(deploymentOutcome=\"failure\") endswith=(deploymentOutcome=\"success\")\n| stats avg(duration) AS avg_duration",
+                "queryParameters": {}
+            },
+            "name": "MTTR search"
+        },
+        "ds_lXxUUY3W_ds_fVSSLXOH": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb | where deploymentId!=\"\" | stats dc(count) by deploymentId | stats count as Total",
+                "queryParameters": {}
+            },
+            "name": "total_deployments"
+        },
+        "ds_b3mEeW5c": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*dev\"\n| stats dc(count) by deploymentId\n| stats count as Total"
+            },
+            "name": "dev_deployments"
+        },
+        "ds_JXPRLjU6_ds_b3mEeW5c": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*test\"\n| stats dc(count) by deploymentId\n| stats count as Total"
+            },
+            "name": "test_deployments"
+        },
+        "ds_9Xh8smxg_ds_JXPRLjU6_ds_b3mEeW5c": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*prod\"\n| stats dc(count) by deploymentId\n| stats count as Total"
+            },
+            "name": "prod_deployments"
+        },
+        "ds_laYYoqlZ": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=\"lb\" \r\n| spath deploymentOutcome\r\n| search deploymentOutcome=success OR deploymentOutcome=failure\r\n| stats count by deploymentOutcome \r\n| eval percentage = round((count / total) * 100, 2)"
+            },
+            "name": "Success Failure Rate aggregate"
+        },
+        "ds_NchzcV0z": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=\"lb\" \r\n| spath deploymentOutcome\r\n| search deploymentOutcome=success OR deploymentOutcome=failure\r\n| timechart count by deploymentOutcome\r\n\r\n"
+            },
+            "name": "Success Failure Rate"
+        },
+        "ds_6pH4dCg7_ds_laYYoqlZ": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=\"lb\"\r\n| where deploymentId!=\"\"\r\n| spath input=_raw path=commandLabelFilter\r\n| stats count by commandLabelFilter \r\n| eval percentage = round((count / total) * 100, 2) \r\n"
+            },
+            "name": "Releases by Top Apps"
+        },
+        "ds_jS9oMmln": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb | where deploymentId!=\"\" | spath liquibaseCommandName | search liquibaseCommandName=\"rollback*\" | timechart span=1h count(deploymentId) as deploymentId"
+            },
+            "name": "Rollbacks by Apps"
+        },
+        "ds_EuIa2Xoo_ds_JXPRLjU6_ds_b3mEeW5c": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=lb\n| where deploymentId!=\"\"\n| search liquibaseTargetUrl=\"*stag\"\n| stats dc(count) by deploymentId\n| stats count as Total"
+            },
+            "name": "stage_deployments"
+        },
+        "ds_wukSSCfT_ds_NchzcV0z": {
+            "type": "ds.search",
+            "options": {
+                "query": "index=\"lb\"\n| search changesetOperationStart!=\"\" AND deploymentId!=\"\" AND level=INFO AND changesetId!=\"\"\n| search liquibaseTargetUrl=\"*prod\" OR liquibaseTargetUrl=\"*dev\"\n| transaction changesetId endswith=liquibaseTargetUrl=\"*prod\" startswith=liquibaseTargetUrl=\"*dev\"\n| stats avg(duration) as LB\n| eval result=round(LB/86400, 4)"
+            },
+            "name": "Lead Time to Change"
+        }
+    },
+    "visualizations": {
+        "viz_xieEmd0D": {
+            "type": "splunk.singlevalue",
+            "options": {
+                "numberPrecision": 3,
+                "sparklineDisplay": "below",
+                "trendDisplay": "absolute",
+                "underLabel": "sec",
+                "unitPosition": "after",
+                "shouldUseThousandSeparators": true
+            },
+            "dataSources": {
+                "primary": "ds_OmvYo00U"
+            },
+            "title": "MTTR"
+        },
+        "viz_tCmBWTEo": {
+            "type": "splunk.singlevalue",
+            "dataSources": {
+                "primary": "ds_lXxUUY3W_ds_fVSSLXOH"
+            },
+            "options": {
+                "sparklineValues": "> primary | seriesByName('Total')",
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendColor": "transparent",
+                "sparklineDisplay": "off",
+                "majorColor": "#294e70",
+                "trendValue": "> sparklineValues | delta(-2)"
+            },
+            "title": "Total deployments"
+        },
+        "viz_mp7e5D7R": {
+            "type": "splunk.singlevalue",
+            "options": {
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "sparklineValues": "> primary | seriesByName('Total')",
+                "trendColor": "transparent",
+                "sparklineDisplay": "off",
+                "majorColor": "#294e70"
+            },
+            "dataSources": {
+                "primary": "ds_b3mEeW5c"
+            },
+            "title": "Dev deployments"
+        },
+        "viz_aGnbUnA6": {
+            "type": "splunk.singlevalue",
+            "options": {
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "sparklineValues": "> primary | seriesByName('Total')",
+                "trendColor": "transparent",
+                "sparklineDisplay": "off",
+                "majorColor": "#294e70"
+            },
+            "dataSources": {
+                "primary": "ds_JXPRLjU6_ds_b3mEeW5c"
+            },
+            "title": "Test deployments"
+        },
+        "viz_JYlh45Gf": {
+            "type": "splunk.singlevalue",
+            "options": {
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "sparklineValues": "> primary | seriesByName('Total')",
+                "trendColor": "transparent",
+                "sparklineDisplay": "off",
+                "majorColor": "#294e70"
+            },
+            "dataSources": {
+                "primary": "ds_9Xh8smxg_ds_JXPRLjU6_ds_b3mEeW5c"
+            },
+            "title": "Prod deployments"
+        },
+        "viz_3Y7jgyI6": {
+            "type": "splunk.pie",
+            "title": "Success/Failure Rate (aggregate)",
+            "dataSources": {
+                "primary": "ds_laYYoqlZ"
+            },
+            "options": {
+                "labelDisplay": "valuesAndPercentage",
+                "showDonutHole": true
+            }
+        },
+        "viz_IcWhHVYI": {
+            "type": "splunk.area",
+            "dataSources": {
+                "primary": "ds_NchzcV0z"
+            },
+            "title": "Success/Failure Rate (aggregate)",
+            "options": {
+                "yAxisTitleText": "Deployments",
+                "xAxisTitleText": "Timestamp per day"
+            }
+        },
+        "viz_vV1iWI7O": {
+            "type": "splunk.pie",
+            "title": "Releases by Top Apps",
+            "dataSources": {
+                "primary": "ds_6pH4dCg7_ds_laYYoqlZ"
+            },
+            "options": {
+                "labelDisplay": "valuesAndPercentage",
+                "showDonutHole": true
+            }
+        },
+        "viz_HW5EvucE": {
+            "type": "splunk.line",
+            "title": "Rollbacks by Apps",
+            "dataSources": {
+                "primary": "ds_jS9oMmln"
+            },
+            "options": {
+                "xAxisTitleText": "timestamp per day",
+                "yAxisTitleText": "# of rollbacks",
+                "seriesColors": [
+                    "#2DA65B"
+                ],
+                "legendDisplay": "off",
+                "nullValueDisplay": "connect"
+            }
+        },
+        "viz_FKkJB3ua": {
+            "type": "splunk.singlevalue",
+            "options": {
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "sparklineValues": "> primary | seriesByName('Total')",
+                "trendColor": "transparent",
+                "sparklineDisplay": "off",
+                "majorColor": "#294e70"
+            },
+            "dataSources": {
+                "primary": "ds_EuIa2Xoo_ds_JXPRLjU6_ds_b3mEeW5c"
+            },
+            "title": "Stage deployments"
+        },
+        "viz_OIdVl5Ml": {
+            "type": "splunk.singlevalue",
+            "dataSources": {
+                "primary": "ds_wukSSCfT_ds_NchzcV0z"
+            },
+            "title": "Lead time to change (days)",
+            "showProgressBar": false,
+            "showLastUpdated": false,
+            "options": {
+                "majorValue": "> sparklineValues | lastPoint()",
+                "trendValue": "> sparklineValues | delta(-2)",
+                "sparklineValues": "> primary | seriesByName('result')",
+                "sparklineDisplay": "off",
+                "trendDisplay": "off",
+                "numberPrecision": 2,
+                "majorColor": "#294e70"
+            }
+        }
+    },
+    "inputs": {
+        "input_global_trp": {
+            "type": "input.timerange",
+            "options": {
+                "token": "global_time",
+                "defaultValue": "-24h@h,now"
+            },
+            "title": "Global Time Range"
+        }
+    },
+    "layout": {
+        "type": "grid",
+        "options": {},
+        "structure": [
+            {
+                "item": "viz_tCmBWTEo",
+                "type": "block",
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 1180,
+                    "h": 182
+                }
+            },
+            {
+                "item": "viz_mp7e5D7R",
+                "type": "block",
+                "position": {
+                    "x": 0,
+                    "y": 182,
+                    "w": 265,
+                    "h": 92
+                }
+            },
+            {
+                "item": "viz_3Y7jgyI6",
+                "type": "block",
+                "position": {
+                    "x": 0,
+                    "y": 274,
+                    "w": 354,
+                    "h": 293
+                }
+            },
+            {
+                "item": "viz_vV1iWI7O",
+                "type": "block",
+                "position": {
+                    "x": 0,
+                    "y": 567,
+                    "w": 593,
+                    "h": 286
+                }
+            },
+            {
+                "item": "viz_aGnbUnA6",
+                "type": "block",
+                "position": {
+                    "x": 265,
+                    "y": 182,
+                    "w": 284,
+                    "h": 92
+                }
+            },
+            {
+                "item": "viz_IcWhHVYI",
+                "type": "block",
+                "position": {
+                    "x": 354,
+                    "y": 274,
+                    "w": 581,
+                    "h": 293
+                }
+            },
+            {
+                "item": "viz_FKkJB3ua",
+                "type": "block",
+                "position": {
+                    "x": 549,
+                    "y": 182,
+                    "w": 301,
+                    "h": 92
+                }
+            },
+            {
+                "item": "viz_HW5EvucE",
+                "type": "block",
+                "position": {
+                    "x": 593,
+                    "y": 567,
+                    "w": 293,
+                    "h": 286
+                }
+            },
+            {
+                "item": "viz_JYlh45Gf",
+                "type": "block",
+                "position": {
+                    "x": 850,
+                    "y": 182,
+                    "w": 330,
+                    "h": 92
+                }
+            },
+            {
+                "item": "viz_xieEmd0D",
+                "type": "block",
+                "position": {
+                    "x": 886,
+                    "y": 567,
+                    "w": 294,
+                    "h": 286
+                }
+            },
+            {
+                "item": "viz_OIdVl5Ml",
+                "type": "block",
+                "position": {
+                    "x": 935,
+                    "y": 274,
+                    "w": 245,
+                    "h": 293
+                }
+            }
+        ],
+        "globalInputs": [
+            "input_global_trp"
+        ]
+    },
+    "title": "Executive Dashboard",
+    "description": "",
+    "defaults": {
+        "dataSources": {
+            "ds.search": {
+                "options": {
+                    "queryParameters": {
+                        "latest": "$global_time.latest$",
+                        "earliest": "$global_time.earliest$"
+                    }
+                }
+            }
+        }
+    }
 }
