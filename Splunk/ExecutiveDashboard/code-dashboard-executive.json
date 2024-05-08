@@ -78,6 +78,13 @@
                 "query": "index=\"lb\"\n| search changesetOperationStart!=\"\" AND deploymentId!=\"\" AND level=INFO AND changesetId!=\"\"\n| search liquibaseTargetUrl=\"*prod\" OR liquibaseTargetUrl=\"*dev\"\n| transaction changesetId endswith=liquibaseTargetUrl=\"*prod\" startswith=liquibaseTargetUrl=\"*dev\"\n| stats avg(duration) as LB\n| eval result=round(LB/86400, 4)"
             },
             "name": "Lead Time to Change"
+        },
+        "ds_obWk153B": {
+            "type": "ds.search",
+            "options": {
+                "query": "source=\"qc.json\" host=\"5420ec4297a5\" index=\"lb\" sourcetype=\"_json\" \"qualityChecks.changelogChecks{}.issues{}.checkSeverity\"=INFO \"qualityChecks.changelogChecks{}.issues{}.checkShortName\"=\"*\" qualityChecks.changelogChecks{}.issues{}.changesetId=\"*\" qualityChecks.changelogChecks{}.issues{}.changesetAuthor=\"*\" qualityChecks.changelogChecks{}.issues{}.changesetFilePath=\"*\"\n| spath output=checkShortName path=qualityChecks.changelogChecks{}.issues{}.checkShortName\n| spath output=checkSeverity path=qualityChecks.changelogChecks{}.issues{}.checkSeverity\n| spath output=changesetId path=qualityChecks.changelogChecks{}.issues{}.changesetId\n| spath output=changesetAuthor path=qualityChecks.changelogChecks{}.issues{}.changesetAuthor\n| spath output=changesetFilePath path=qualityChecks.changelogChecks{}.issues{}.changesetFilePath\n| table timestamp checkShortName checkSeverity changesetId changesetAuthor changesetFilePath\n| sort -timestamp\n| head 5"
+            },
+            "name": "Search_1"
         }
     },
     "visualizations": {
@@ -237,6 +244,14 @@
                 "numberPrecision": 2,
                 "majorColor": "#294e70"
             }
+        },
+        "viz_97UOsS3k": {
+            "type": "splunk.table",
+            "dataSources": {
+                "primary": "ds_obWk153B"
+            },
+            "title": "Latest Checks Triggered",
+            "description": "This table shows the list of checks triggered."
         }
     },
     "inputs": {
@@ -253,6 +268,16 @@
         "type": "grid",
         "options": {},
         "structure": [
+            {
+                "item": "viz_97UOsS3k",
+                "type": "block",
+                "position": {
+                    "x": 0,
+                    "y": 853,
+                    "w": 1200,
+                    "h": 400
+                }
+            },
             {
                 "item": "viz_tCmBWTEo",
                 "type": "block",
