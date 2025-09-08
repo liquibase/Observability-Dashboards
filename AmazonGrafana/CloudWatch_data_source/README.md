@@ -1,6 +1,6 @@
-# AWS CLOUDWATCH DASHBOARDS 
+# Amazon Grafana  
 
-This folder contains JSON export of one AWS Managed Grafana dashboard: 
+This folder contains JSON export of one AWS Managed Grafana dashboard using a CloudWatch data source: 
 
 * Executive Dashboard
 
