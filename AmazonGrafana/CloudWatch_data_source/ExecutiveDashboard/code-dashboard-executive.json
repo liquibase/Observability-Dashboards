@@ -577,246 +577,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 12,
-        "x": 12,
-        "y": 21
-      },
-      "id": 10,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "10.4.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "cloudwatch",
-            "uid": "dexgofvrldc74f"
-          },
-          "dimensions": {},
-          "expression": "fields @timestamp, @message\n| parse @message '\"deploymentOutcome\":\"*\"' as deploymentOutcome\n| filter deploymentOutcome = \"success\"\n| stats count(*) by bin(1d), deploymentOutcome\n",
-          "hide": false,
-          "id": "",
-          "label": "",
-          "logGroups": [
-            {
-              "accountId": "907240911534",
-              "arn": "arn:aws:logs:us-east-1:907240911534:log-group:/aws/lambda/liquibase_get_logs_grafana:*",
-              "name": "/aws/lambda/liquibase_get_logs_grafana"
-            }
-          ],
-          "matchExact": true,
-          "metricEditorMode": 0,
-          "metricName": "",
-          "metricQueryType": 0,
-          "namespace": "",
-          "period": "",
-          "queryMode": "Logs",
-          "refId": "Successes",
-          "region": "default",
-          "sqlExpression": "",
-          "statistic": "Average",
-          "statsGroups": [
-            "bin(1d)",
-            "deploymentOutcome"
-          ]
-        },
-        {
-          "datasource": {
-            "type": "cloudwatch",
-            "uid": "dexgofvrldc74f"
-          },
-          "dimensions": {},
-          "expression": "fields @timestamp, @message\n| parse @message '\"deploymentOutcome\":\"*\"' as deploymentOutcome\n| filter deploymentOutcome = \"fail\"\n| stats count(*) by bin(1d), deploymentOutcome\n",
-          "hide": false,
-          "id": "",
-          "label": "",
-          "logGroups": [
-            {
-              "accountId": "907240911534",
-              "arn": "arn:aws:logs:us-east-1:907240911534:log-group:/aws/lambda/liquibase_get_logs_grafana:*",
-              "name": "/aws/lambda/liquibase_get_logs_grafana"
-            }
-          ],
-          "matchExact": true,
-          "metricEditorMode": 1,
-          "metricName": "",
-          "metricQueryType": 0,
-          "namespace": "",
-          "period": "",
-          "queryMode": "Logs",
-          "refId": "Failures",
-          "region": "default",
-          "sqlExpression": "",
-          "statistic": "Average",
-          "statsGroups": [
-            "bin(1d)",
-            "deploymentOutcome"
-          ]
-        }
-      ],
-      "title": "Deployment Frequency",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "cloudwatch",
-        "uid": "dexgofvrldc74f"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 14,
-        "w": 12,
-        "x": 0,
-        "y": 35
-      },
-      "id": 13,
-      "options": {
-        "displayLabels": [
-          "name"
-        ],
-        "legend": {
-          "calcs": [],
-          "displayMode": "hidden",
-          "placement": "right",
-          "showLegend": false,
-          "values": []
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "cloudwatch",
-            "uid": "dexgofvrldc74f"
-          },
-          "dimensions": {},
-          "expression": "fields @timestamp, deploymentId, userMetadata.appname as team \n| filter deploymentId != \"\"\n| stats count_distinct(deploymentId) as deployments by coalesce(team, \"No team\")\n",
-          "id": "",
-          "label": "",
-          "logGroups": [
-            {
-              "accountId": "907240911534",
-              "arn": "arn:aws:logs:us-east-1:907240911534:log-group:/aws/lambda/liquibase_get_logs_grafana:*",
-              "name": "/aws/lambda/liquibase_get_logs_grafana"
-            }
-          ],
-          "matchExact": true,
-          "metricEditorMode": 0,
-          "metricName": "",
-          "metricQueryType": 0,
-          "namespace": "",
-          "period": "",
-          "queryMode": "Logs",
-          "refId": "A",
-          "region": "default",
-          "sqlExpression": "",
-          "statistic": "Average",
-          "statsGroups": [
-            "coalesce(team"
-          ]
-        }
-      ],
-      "title": "Deployments by App",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "cloudwatch",
-        "uid": "dexgofvrldc74f"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -840,7 +600,7 @@
         "h": 14,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 21
       },
       "id": 12,
       "options": {
@@ -902,13 +662,13 @@
     "list": []
   },
   "time": {
-    "from": "now-30d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Liquibase - Cloudwatch",
   "uid": "bexgr2qli6whse",
-  "version": 22,
+  "version": 23,
   "weekStart": ""
 }
